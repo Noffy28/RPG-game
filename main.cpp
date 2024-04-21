@@ -1,4 +1,9 @@
 #include <iostream>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlError>
+
 #include "hero.h"
 #include "enemy.h"
 
@@ -14,12 +19,24 @@ int mainMeny(){
 }
 
 
-int main() {
-    bool gameon = true;
+int main(int argc, char *argv[]) {
+    //bool gameon = true;
 
-    Hero h;
+    QCoreApplication a(argc,argv);
 
-    std::cout << h.getLevel() << std::endl;
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("/home/christofferbj/test1.db");
+
+    if (!db.open()) {
+        qWarning() << "Failed to open database:" << db.lastError().text();
+        return 1;
+    }
+
+    qDebug() << "Database connection established.";
+
+    db.close();
+
+    return a.exec();
 
     /*while(gameon){
         int input = mainMeny();
@@ -40,7 +57,4 @@ int main() {
         }
 
     }*/
-
-
-    return 0;
 }
