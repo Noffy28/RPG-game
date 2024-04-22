@@ -91,7 +91,7 @@ public:
     void loadCharacter(std::string characterName){
         QString _characterName = QString::fromStdString(characterName);
         QSqlQuery query;
-        query.prepare("SELECT * FROM gametest Where _name = :name");
+        query.prepare("SELECT * FROM characterBase Where _name = :name");
         query.bindValue(":name", _characterName);
 
 
@@ -109,6 +109,38 @@ public:
             setHp(query.value("_hp").toInt());
             setStrength(query.value("_strength").toInt());
         }
+    }
+
+    void saveCharacter(){
+        QString name = QString::fromStdString(_name);
+
+        QSqlQuery query;
+        query.prepare("INSERT INTO characterBase (_name, _xp, _level, _hp, _strength) VALUES(:name, :xp, :level, :hp, :strength)");
+        query.bindValue(":name", name);
+        query.bindValue(":xp", _xp);
+        query.bindValue(":level", _level);
+        query.bindValue(":hp", _hp);
+        query.bindValue(":strength", _strength);
+
+        if (!query.exec()) {
+            qWarning() << "Failed to save character:" << query.lastError().text();
+        }
+
+
+    }
+
+    void deleteCharacter(std::string _name){
+        QString name = QString::fromStdString(_name);
+
+        QSqlQuery query;
+        query.prepare("DELETE FROM characterBase WHERE _name = :name");
+        query.bindValue(":name", name);
+
+        if (!query.exec()) {
+            qDebug() << "Failed to delete character:" << query.lastError().text();
+
+        }
+        qDebug() << "Character deleted successfully.";
     }
 
 

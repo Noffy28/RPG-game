@@ -22,11 +22,9 @@ int mainMenu(){
 int main() {
     QSqlDatabase db;
     Hero testboy;
-    openDatabase(db);
+    Enemy testEnemy1("Hest",4,100,1);
 
-    testboy.loadCharacter("");
-    std::cout << testboy.getHp() << std::endl;
-    std::cout << testboy.getStrength() << std::endl;
+    openDatabase(db);
 
 
     //deleteCharacter("test");

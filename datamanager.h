@@ -26,37 +26,9 @@ void closeDatabase(QSqlDatabase& db){
     qDebug() << "Database closed";
 }
 
-void saveCharacter(std::string _name, int _xp, int _level, int _hp, int _strength){
-    QString name = QString::fromStdString(_name);
-
-    QSqlQuery query;
-    query.prepare("INSERT INTO gametest (_name, _xp, _level, _hp, _strength) VALUES(:name, :xp, :level, :hp, :strength)");
-    query.bindValue(":name", name);
-    query.bindValue(":xp", _xp);
-    query.bindValue(":level", _level);
-    query.bindValue(":hp", _hp);
-    query.bindValue(":strength", _strength);
-
-    if (!query.exec()) {
-        qWarning() << "Failed to insert test data:" << query.lastError().text();
-    }
 
 
-}
 
-void deleteCharacter(std::string _name){
-    QString name = QString::fromStdString(_name);
-
-    QSqlQuery query;
-    query.prepare("DELETE FROM gametest WHERE _name = :name");
-    query.bindValue(":name", name);
-
-    if (!query.exec()) {
-        qDebug() << "Failed to delete character:" << query.lastError().text();
-
-    }
-    qDebug() << "Character deleted successfully.";
-}
 
 
 
