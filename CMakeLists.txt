@@ -9,7 +9,8 @@ find_package(Qt5 REQUIRED COMPONENTS Core Quick Sql)
 
 add_executable(RPG-game main.cpp
     hero.h
-    enemy.h)
+    enemy.h
+    datamanager.h)
 
 target_link_libraries(RPG-game Qt5::Core Qt5::Quick Qt5::Sql)
 

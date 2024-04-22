@@ -1,6 +1,12 @@
 #ifndef HERO_H
 #define HERO_H
 #include <string>
+#include <QCoreApplication>
+#include <QDebug>
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QString>
 
 class Hero{
 private:
@@ -81,6 +87,30 @@ public:
         _hp = _hp + 2;
         _strength++;
     }
+
+    void loadCharacter(std::string characterName){
+        QString _characterName = QString::fromStdString(characterName);
+        QSqlQuery query;
+        query.prepare("SELECT * FROM gametest Where _name = :name");
+        query.bindValue(":name", _characterName);
+
+
+        if (!query.exec()) {
+            qDebug() << "Failed to load character:" << query.lastError().text();
+
+        }
+
+        if (query.next()) {
+            QString nameQString = query.value("_name").toString();
+            std::string nameStdString = nameQString.toStdString();
+            setName(nameStdString);
+            setXp(query.value("_xp").toInt());
+            setLevel(query.value("_level").toInt());
+            setHp(query.value("_hp").toInt());
+            setStrength(query.value("_strength").toInt());
+        }
+    }
+
 
 };
 
