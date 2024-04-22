@@ -1,5 +1,6 @@
 #ifndef HERO_H
 #define HERO_H
+#include <iostream>
 #include <string>
 #include <QCoreApplication>
 #include <QDebug>
@@ -43,9 +44,18 @@ public:
         return _strength;
     }
 
+    void getStats(){
+        std::cout << getName() << "'s Stats:" << std::endl;
+        std::cout << "Hp: " << getHp() << std::endl;
+        std::cout << "Strength: " << getStrength() << std::endl;
+        std::cout << "Level: " << getLevel() << std::endl;
+        std::cout << "Xp: " << getXp() << std::endl;
+    }
+
     void setName(std::string newName){
         _name = newName;
     }
+
 
     void setXp(int newXp){
         _xp = newXp;
