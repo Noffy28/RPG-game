@@ -70,13 +70,13 @@ public:
 
     void gainXp(int xpGain){
         _xp = _xp + xpGain;
-        if(_xp >= 1000){
+        if(_xp >= 1000 * _level){
             levelUp();
         }
     }
 
     void levelUp(){
-        _xp = _xp - 1000;
+        _xp = _xp - 1000 * _level;
         _level++;
         _hp = _hp + 2;
         _strength++;
