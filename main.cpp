@@ -11,12 +11,21 @@
 
 
 int main() {
-    Hero player;
+    Game game;
+    Hero test;
+    QSqlDatabase db;
 
-    if(mainMenu(player)){
-        return 0;
-    }
+    //openDatabase(db);
+    //test.deleteCharacter("Hero");
+    //closeDatabase(db);
 
-    gameMenu(player);
-    return 0;
+    /*while(1){
+        if(game.mainMenu()){
+            break;
+        }
+
+        if(game.gameMenu()){
+            break;
+        }
+    }*/
 }
