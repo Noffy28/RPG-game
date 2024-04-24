@@ -9,6 +9,13 @@
 
 
 bool openDatabase(QSqlDatabase& db){
+
+    if(QSqlDatabase::contains()){
+        db = QSqlDatabase::database();
+        qDebug() <<"Database being reused";
+        return true;
+    }
+
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName("/home/christofferbj/Workspace/Database/test1.db;");
 

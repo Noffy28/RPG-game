@@ -13,19 +13,21 @@
 int main() {
     Game game;
     Hero test;
-    QSqlDatabase db;
+    //Enemy monster("Dragon",3000,100,10);
+    //QSqlDatabase db;
 
     //openDatabase(db);
-    //test.deleteCharacter("Hero");
+    //monster.saveEnemy();
     //closeDatabase(db);
 
-    /*while(1){
+    while(1){
         if(game.mainMenu()){
             break;
         }
-
         if(game.gameMenu()){
             break;
         }
-    }*/
+
+
+    }
 }

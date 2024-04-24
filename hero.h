@@ -80,6 +80,10 @@ public:
         }
     }
 
+    void healDamage(){
+        _hp = 8 +  _level * 2;
+    }
+
     int dealDamage(){
         return _strength;
     }
@@ -96,6 +100,8 @@ public:
         _level++;
         _hp = _hp + 2;
         _strength++;
+        std::cout << _name << " Leveled Up!" << std::endl;
+        getStats();
     }
 
     void loadCharacter(std::string characterName){
