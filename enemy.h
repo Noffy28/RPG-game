@@ -1,5 +1,6 @@
 #ifndef ENEMY_H
 #define ENEMY_H
+#include <iostream>
 #include <string>
 #include <QCoreApplication>
 #include <QDebug>
@@ -65,11 +66,41 @@ public:
         return _strength;
     }
 
-    void loadEnemy(std::string enemyName){
-        QString _enemyName = QString::fromStdString(enemyName);
+    void loadEnemy(){
+
         QSqlQuery query;
-        query.prepare("SELECT * FROM enemyBase Where _name = :name");
-        query.bindValue(":name", _enemyName);
+        query.prepare("SELECT _name, _hp, _strength, _xp from enemyBase");
+        //query.bindValue(":name", _enemyName);
+
+        if(query.exec()){
+            std::cout << "Avaliable Enemies: " << std::endl;
+            int count = 1;
+            while(query.next()){
+                std::string _name = query.value(0).toString().toStdString();
+                int hp = query.value(1).toInt();
+                int strength = query.value(2).toInt();
+
+                std::cout << "(" << count << ")" << _name << " With: " << hp << " Hp And " << strength << " Strength" << std::endl;
+                count++;
+            }
+            int choice;
+            std::cout << "Choose Your Enemy: " << std::endl;
+
+            std::cin >> choice;
+
+            query.seek(choice -1);
+
+            _name = query.value(0).toString().toStdString();
+            _hp = query.value(1).toInt();
+            _strength = query.value(2).toInt();
+            _xpdrop = query.value(3).toInt();
+
+
+        }
+
+
+
+
 
 
         if (!query.exec()) {
@@ -77,14 +108,6 @@ public:
 
         }
 
-        if (query.next()) {
-            QString nameQString = query.value("_name").toString();
-            std::string nameStdString = nameQString.toStdString();
-            setName(nameStdString);
-            setXpdrop(query.value("_xp").toInt());
-            setHp(query.value("_hp").toInt());
-            setStrength(query.value("_strength").toInt());
-        }
     }
 
     void saveEnemy(){

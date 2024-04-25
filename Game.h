@@ -43,11 +43,11 @@ public:
         closeDatabase(db);
     }
 
-    Enemy loadMonster(std::string enemyName){
+    Enemy loadMonster(){
         QSqlDatabase db;
         openDatabase(db);
 
-        monster.loadEnemy(enemyName);
+        monster.loadEnemy();
         closeDatabase(db);
         return monster;
 
@@ -142,7 +142,7 @@ public:
 
             switch(input){
             case 1:
-                pickEnemy();
+                loadMonster();
                 battleFunction();
                 break;
             case 2:
@@ -160,7 +160,7 @@ public:
         return false;
     }
 
-    bool pickEnemy(){
+    /*bool pickEnemy(){
         bool pickon = true;
         while(pickon){
             int input;
@@ -229,7 +229,7 @@ public:
 
         }
         return true;
-    }
+    }*/
 
 
 };
